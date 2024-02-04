@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"net/http"
-	configs "project/config"
+	"project/cmd/migrations"
+	"project/configs"
 	"project/controllers"
-	"project/migrations"
 	"project/models"
 	templates "project/template"
 	views "project/view"
