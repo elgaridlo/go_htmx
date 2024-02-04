@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admingo
+      POSTGRES_DB: go_db
+    ports:
+      - ${DATABASE_PORT}:5432
