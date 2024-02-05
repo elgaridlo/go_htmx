@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"project/context"
 	"project/models"
+	templates "project/template"
+	views "project/view"
 )
 
 type Users struct {
@@ -20,7 +22,13 @@ func (u Users) SignIn(w http.ResponseWriter, r *http.Request) {
 		Email string
 	}
 	data.Email = r.FormValue("email")
-	u.Templates.SignIn.Execute(w, r, data)
+	views.Must(
+		views.ParseFS(
+			templates.FS,
+			"sign.html",
+			"index.html",
+		),
+	).Execute(w, r, data)
 }
 
 func (u Users) ProcessSignIn(w http.ResponseWriter, r *http.Request) {

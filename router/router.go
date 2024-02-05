@@ -1,13 +1,9 @@
 package router
 
 import (
-	// "fmt"
-	// "io/fs"
-	// "net/http"
-	// "os"
-	configs "project/config"
-	// "project/internal/controllers"
-	// "project/public"
+	"net/http"
+	"project/configs"
+	"project/controllers"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/gorilla/csrf"
@@ -15,6 +11,8 @@ import (
 
 func SetupRouter(
 	cfg configs.Config,
+	umw controllers.UserMiddleware,
+	usersC controllers.Users,
 
 ) *chi.Mux {
 	r := chi.NewRouter()
@@ -25,6 +23,23 @@ func SetupRouter(
 	)
 
 	r.Use(csrfMw)
+	r.Use(umw.SetUser)
+
+	// Authentication
+	r.Group(func(r chi.Router) {
+		r.Get("/signin", usersC.SignIn)
+		r.Post("/signin", usersC.ProcessSignIn)
+	})
+
+	r.Route("/users/me", func(r chi.Router) {
+		r.Use(umw.RequireUser)
+		r.Get("/", usersC.CurrentUser)
+	})
+
+	// Not Found
+	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
+		http.Error(w, "Page not found", http.StatusNotFound)
+	})
 
 	return r
 }

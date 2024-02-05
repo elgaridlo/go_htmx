@@ -7,10 +7,7 @@ import (
 	"project/configs"
 	"project/controllers"
 	"project/models"
-	templates "project/template"
-	views "project/view"
-
-	"github.com/go-chi/chi/v5"
+	"project/router"
 )
 
 func main() {
@@ -38,31 +35,20 @@ func main() {
 
 	// Set up middleware
 	umw := controllers.UserMiddleware{
-		SessionService: &models.SessionService{},
+		SessionService: sessionService,
 	}
-	r := chi.NewRouter()
 
 	// Set up controllers
 	usersC := controllers.Users{
 		UserService:    userService,
 		SessionService: sessionService,
 	}
-	usersC.Templates.SignIn = views.Must(views.ParseFS(
-		templates.FS, "sign.html", "index.html"))
 
-	// Dashboard
-	r.With(umw.RequireUser).Get("/", controllers.StaticHandler(views.Must(views.ParseFS(
-		templates.FS,
-		"sign.html", "index.html",
-	))))
-
-	r.Get("/signin", usersC.SignIn)
-	r.Post("/signin", usersC.ProcessSignIn)
-
-	// Not Found
-	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
-		http.Error(w, "Page not found", http.StatusNotFound)
-	})
+	r := router.SetupRouter(
+		cfg,
+		umw,
+		usersC,
+	)
 
 	// Start the server
 	fmt.Printf("Starting the server on %s...\n", cfg.Server.Address)
