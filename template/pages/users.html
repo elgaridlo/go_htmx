@@ -1,0 +1,31 @@
+{{define "page"}}
+
+<h1>TABLE USER</h1>
+<div class="w-full">
+  <div id="user-list-container">
+    <button><a href="users/add">ADD</a></button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range .Data }}
+        <tr>
+          <th scope="row">{{ .ID }}</th>
+          <td>{{ .Name }}</td>
+          <td>{{ .Email }}</td>
+          <td><button><a href="/users/edit/{{ .ID }}">Edit</a></button></td>
+          <td><button><a href="/users/delete/{{ .ID }}">DELETE</a></button></td>
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+</div>
+{{ end }}

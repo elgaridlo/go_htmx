@@ -23,13 +23,13 @@ func SeedUsers(services Services) {
 	}
 
 	insUsers := []models.User{
-		{Email: "admin@gmail.com", PasswordHash: "password123"},
-		{Email: "manager@gmail.com", PasswordHash: "password123"},
-		{Email: "staff@gmail.com", PasswordHash: "password123"},
+		{Email: "admin@gmail.com", Name: "admin", PasswordHash: "password123"},
+		{Email: "manager@gmail.com", Name: "manager", PasswordHash: "password123"},
+		{Email: "staff@gmail.com", Name: "staff", PasswordHash: "password123"},
 	}
 
 	for _, user := range insUsers {
-		_, err := services.UserService.Create(user)
+		_, err := services.UserService.CreateUser(user)
 		if err != nil {
 			panic(err)
 		}

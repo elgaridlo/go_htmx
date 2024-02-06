@@ -6,6 +6,7 @@ require (
 	github.com/Shopify/goreferrer v0.0.0-20220729165902-8cddb4f5de06 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/go-chi/chi/v5 v5.0.11 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
@@ -31,8 +32,10 @@ require (
 	github.com/klauspost/compress v1.17.4 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.26 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/pressly/goose/v3 v3.17.0 // indirect
 	github.com/sethvargo/go-retry v0.2.4 // indirect
+	github.com/stretchr/testify v1.8.4 // indirect
 	github.com/tdewolff/minify/v2 v2.20.14 // indirect
 	github.com/tdewolff/parse/v2 v2.7.8 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect

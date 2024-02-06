@@ -31,9 +31,14 @@ func SetupRouter(
 		r.Post("/signin", usersC.ProcessSignIn)
 	})
 
-	r.Route("/users/me", func(r chi.Router) {
+	r.Route("/users", func(r chi.Router) {
 		r.Use(umw.RequireUser)
-		r.Get("/", usersC.CurrentUser)
+		r.Get("/", usersC.GetUsers)
+		r.Get("/add", usersC.ViewCreateUser)
+		r.Post("/", usersC.ProcessCreateUser)
+		r.Get("/delete/{id}", usersC.DeleteUser)
+		r.Get("/edit/{id}", usersC.ViewUpdateUser)
+		r.Post("/edit", usersC.ProcessUpdateUser)
 	})
 
 	// Not Found
